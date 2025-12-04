@@ -10,7 +10,7 @@ event-based backtesting, streaming tick data, and basic causality diagnostics.
 
 ---
 
-## Meta Information
+## Copyright and Contact
 
 - &copy; Dr. Yves J. Hilpisch  
 - AI-Powered by GPT 5.1  
