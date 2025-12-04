@@ -1,5 +1,6 @@
 <img src="https://hilpisch.com/tpq_logo_bic.png" width="25%" align="right">
 <br>
+
 # Python for Algorithmic Trading · Jupyter Notebooks
 
 The notebooks in this directory provide interactive, narrative walk-throughs of the main topics covered in the article and slide deck on **Python for Algorithmic Trading: Efficient Markets, Backtesting, and Streaming**.
