@@ -1,7 +1,3 @@
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-
 """
 Vectorized lagged-returns OLS backtest on EURUSD.
 
@@ -11,13 +7,31 @@ The Python Quants GmbH | https://tpq.io
 https://hilpisch.com | https://linktr.ee/dyjh
 """
 
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from pathlib import Path
+
+DATA_URL = ("https://raw.githubusercontent.com/yhilpisch/epatcode/"
+            "refs/heads/main/data/epat_eod.csv")
+
 plt.style.use("seaborn-v0_8")
 
 
 def load_prices(path: str="data/epat_eod.csv",
                 column: str="EURUSD") -> pd.Series:
-    """Load end-of-day prices for a single instrument."""
-    df = pd.read_csv(path, parse_dates=["Date"])
+    """Load end-of-day prices for a single instrument.
+
+    Uses a local CSV file if available; otherwise falls back to the
+    remote URL, letting :func:`pandas.read_csv` stream the data.
+    """
+    local_path = Path(path)
+    if local_path.is_file():
+        src: str | Path = local_path
+    else:
+        src = DATA_URL
+        print(f"Local data file {local_path} not found, loading from {DATA_URL}")
+    df = pd.read_csv(src, parse_dates=["Date"])
     df = df.set_index("Date")
     prices = df[column].astype(float).dropna()
     return prices

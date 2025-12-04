@@ -57,6 +57,12 @@ class OrderEvent(Event):
     quantity: float
 
 
+from pathlib import Path
+
+DATA_URL = ("https://raw.githubusercontent.com/yhilpisch/epatcode/"
+            "refs/heads/main/data/epat_eod.csv")
+
+
 @dataclass
 class FillEvent(Event):
     """Represents an immediate fill of an order at the current price."""
@@ -74,7 +80,13 @@ class CSVDataHandler:
 
     def __init__(self, path: str="data/epat_eod.csv",
                  column: str="EURUSD") -> None:
-        df = pd.read_csv(path, parse_dates=["Date"]).set_index("Date")
+        local_path = Path(path)
+        if local_path.is_file():
+            src: str | Path = local_path
+        else:
+            src = DATA_URL
+            print(f"Local data file {local_path} not found, loading from {DATA_URL}")
+        df = pd.read_csv(src, parse_dates=["Date"]).set_index("Date")
         prices = df[column].astype(float).dropna()  #  clean symbol series
         self.prices = prices
         self.iterator = iter(prices.items())

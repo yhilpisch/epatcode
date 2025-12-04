@@ -1,7 +1,3 @@
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-
 """
 Object-oriented lagged-returns OLS backtest on EURUSD.
 
@@ -11,7 +7,16 @@ The Python Quants GmbH | https://tpq.io
 https://hilpisch.com | https://linktr.ee/dyjh
 """
 
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from pathlib import Path
+
 plt.style.use("seaborn-v0_8")
+
+
+DATA_URL = ("https://raw.githubusercontent.com/yhilpisch/epatcode/"
+            "refs/heads/main/data/epat_eod.csv")
 
 
 class LagOLSBacktest:
@@ -38,7 +43,13 @@ class LagOLSBacktest:
 
     def _load_data(self) -> None:
         """Load end-of-day prices for the configured instrument."""
-        df = pd.read_csv(self.csv_path, parse_dates=["Date"]).set_index("Date")
+        local_path = Path(self.csv_path)
+        if local_path.is_file():
+            src: str | Path = local_path
+        else:
+            src = DATA_URL
+            print(f"Local data file {local_path} not found, loading from {DATA_URL}")
+        df = pd.read_csv(src, parse_dates=["Date"]).set_index("Date")
         prices = df[self.column].astype(float).dropna()  # ensure numeric, drop gaps
         self.prices = prices  # pandas Series indexed by date
 
