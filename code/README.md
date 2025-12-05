@@ -193,6 +193,26 @@ This script complements the hand-rolled regression example and shows how to conn
 
 ---
 
+## Appendix · Strategy Metrics and Diagnostics
+
+### `strategy_metrics.py`
+
+Provides a reusable `StrategyMetrics` class that turns one or more P\&L or return series into a comprehensive metrics table.
+
+Key elements:
+
+- Accepts either P\&L levels \(x_t\) or periodic returns \(r_t\) for one or more strategies.
+- Computes, for each series:
+  - total and annualized return,
+  - annualized volatility,
+  - Sharpe and Sortino ratios,
+  - maximum drawdown and drawdown duration,
+  - hit rate and skewness of the return distribution, and
+  - excess-return statistics relative to an optional benchmark.
+- Returns a `pandas.DataFrame` with metrics as the index and series names as columns, ready to be exported or merged with other reports.
+- In the main block, loads three instruments (`EURUSD`, `SPY`, `AAPL`) from `data/epat_eod.csv`, uses `SPY` as a benchmark, and prints a rounded overview of the metrics for all three.
+
+- Each script can be explored independently, but running them in the order outlined above mirrors the narrative progression of the article from EMH benchmarks to streaming and causality analysis.
 ## Usage Notes
 
 - All scripts assume a standard virtual Python environment with `numpy`, `pandas`, `matplotlib`, and, where applicable, `statsmodels`, `pyzmq`, and `sqlite3` installed.
