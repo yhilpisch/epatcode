@@ -4,8 +4,8 @@ import pandas as pd
 """
 Computation of return and risk metrics for one or more P&L or return series.
 
-The core class, StrategyMetrics, accepts either P&L levels x_t or periodic
-returns r_t for one or several strategies, computes a suite of diagnostics,
+The core class, StrategyMetrics, accepts either P&L levels \(x_t\) or periodic
+returns \(r_t\) for one or several strategies, computes a suite of diagnostics,
 and returns a pandas DataFrame whose rows are metrics and whose columns are
 individual series.
 

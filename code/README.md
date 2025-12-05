@@ -201,7 +201,7 @@ Provides a reusable `StrategyMetrics` class that turns one or more P\&L or retur
 
 Key elements:
 
-- Accepts either P\&L levels \(x_t\) or periodic returns \(r_t\) for one or more strategies.
+- Accepts either P\&L levels $x_t$ or periodic returns $r_t$ for one or more strategies.
 - Computes, for each series:
   - total and annualized return,
   - annualized volatility,
