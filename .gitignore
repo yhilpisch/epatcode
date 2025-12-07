@@ -5,6 +5,7 @@ __pycache__/
 *.pyd
 *.env
 *.venv
+ticks.*
 venv/
 env/
 .venv/
